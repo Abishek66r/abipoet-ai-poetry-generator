@@ -2,6 +2,7 @@
   "name": "abipoet-frontend",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://Abishek66r.github.io/abipoet-ai-poetry-generator",
   "dependencies": {
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.0",
