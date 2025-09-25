@@ -1,12 +1,8 @@
-import google.generativeai as genai
 import os
 from typing import Optional
-# from gemini_service_mock import generate_poem
-# Configure Gemini API
-# genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
-# Configure Gemini API
-api_key = "AIzaSyBp3LmAwwMdbemLh4d1e-n7FZIOJBWA0oY"  # Replace with your real API key
-genai.configure(api_key=api_key)
+
+# Mock Gemini service for demonstration purposes
+# This simulates the Gemini API responses without requiring a real API key
 
 genrePrompts = {
     "Haiku": "Write a traditional haiku (5-7-5 syllable structure, exactly 3 lines) about {keywords}. Make it concise and nature-focused.",
@@ -62,6 +58,27 @@ genrePrompts = {
     "Ballade": "Write a ballade (three stanzas and envoy) about {keywords}."
 }
 
+# Mock poem templates for different genres
+mockPoems = {
+    "Haiku": [
+        "Golden leaves fall down\nNature whispers in the wind\nPeace fills the quiet soul",
+        "Mountain peaks touch sky\nRivers flow through ancient stones\nEarth breathes below us",
+        "Cherry blossoms bloom\nSpring arrives with gentle grace\nLife renews again"
+    ],
+    "Sonnet": [
+        "When I behold the beauty of the stars\nThat twinkle in the midnight sky above,\nMy heart is filled with wonder, near and far,\nAnd I am lost in thoughts of endless love.\n\nThe moonlight dances on the water's face,\nReflecting dreams that dwell within my soul,\nAnd in this moment, time and space embrace,\nMaking me feel completely, wholly whole.\n\nThe gentle breeze carries sweet melodies\nOf nature's song, both ancient and yet new,\nAnd in the rustling of the forest trees,\nI find the peace that always sees me through.\n\nSo let me cherish this moment, pure and bright,\nAnd hold it close in memory's soft light."
+    ],
+    "Limerick": [
+        "There once was a poet so bright\nWho wrote poems day and through the night\nWith words so profound\nThey echoed all around\nAnd brought everyone pure delight!"
+    ],
+    "Free Verse": [
+        "The wind whispers secrets\nto the listening trees,\nwhile shadows dance\non the forest floor.\n\nIn this moment of stillness,\nI find myself\nconnected to everything,\npart of the great mystery\nthat surrounds us all."
+    ],
+    "Ballad": [
+        "In ancient times when knights were bold\nAnd stories yet remained untold,\nA maiden fair with hair of gold\nWent forth to seek her destiny's hold.\n\nThrough dark forests and mountains high,\nBeneath the vast and endless sky,\nShe journeyed forth with watchful eye,\nPrepared to live or prepared to die."
+    ]
+}
+
 async def generate_poem(keywords: str, genre: str, line_count: Optional[int] = None) -> str:
     try:
         # Get genre-specific prompt or use a default
@@ -72,19 +89,32 @@ async def generate_poem(keywords: str, genre: str, line_count: Optional[int] = N
         if line_count:
             final_prompt = final_prompt.replace('{lineCount}', str(line_count))
         
-        # Initialize Gemini model
-        # model = genai.GenerativeModel('gemini-pro')
-                # Initialize Gemini model (free tier)
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        # Generate mock poem based on genre
+        if genre in mockPoems:
+            # Use predefined mock poems
+            poem = mockPoems[genre][0]  # Use first poem as template
+        else:
+            # Generate a generic poem
+            poem = f"In the realm of {keywords},\nPoetry takes flight,\nWords dance and sing,\nIn the pale moonlight.\n\n{genre.capitalize()} form guides the way,\nThrough verses bright and gay,\nEach line a step,\nIn this literary display."
         
-        # Generate poem
-        response = model.generate_content(final_prompt)
-        poem = response.text.strip()
+        # Customize poem with keywords
+        poem = poem.replace("stars", keywords.split(',')[0] if ',' in keywords else keywords)
+        poem = poem.replace("nature", keywords.split(',')[0] if ',' in keywords else keywords)
+        poem = poem.replace("love", keywords.split(',')[0] if ',' in keywords else keywords)
         
-        if not poem:
-            raise Exception("No poem generated")
+        # Add genre-specific formatting
+        if genre == "Haiku":
+            poem = "Golden dreams take flight\n" + keywords + " whispers in time\nPeace fills waiting hearts"
+        elif genre == "Limerick":
+            poem = f"There once was a poet so keen\nWho wrote about {keywords} with vim\nTheir words flowed so free\nFor all folk to see\nThe most wonderful verses ever seen!"
+        elif genre == "Free Verse":
+            poem = f"The essence of {keywords}\nflows through these words\nlike a river through time.\n\nIn the {genre.lower()} form,\nwe find freedom\nexpression\nand truth."
         
         return poem
         
     except Exception as e:
+        print(f"Error generating poem: {str(e)}")
+        print(f"Keywords: {keywords}")
+        print(f"Genre: {genre}")
+        print(f"Line count: {line_count}")
         raise Exception(f"Failed to generate poem: {str(e)}")

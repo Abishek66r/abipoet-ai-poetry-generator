@@ -196,13 +196,37 @@ const PoetryGenerator = () => {
 
     setIsLoading(true);
     try {
-      const response = await axios.post(API_URL, {
-        keywords: keywords.trim(),
-        genre: selectedGenre,
-        lineCount: lineCountNum
-      });
+      // TEMPORARY MOCK RESPONSE FOR TESTING
+      // Remove this after deploying your backend
+      const mockPoem = `In the realm of ${keywords}, 
+${selectedGenre} takes flight,
+Words dance and sing,
+In the pale moonlight.
 
-      setGeneratedPoem(response.data.poem);
+Through verses bright and gay,
+Each line a step,
+In this literary display,
+Created just for you today.
+
+The essence of ${keywords}
+flows through these words
+like a river through time.
+
+In the ${selectedGenre.toLowerCase()} form,
+we find freedom
+expression
+and truth.`;
+      
+      setGeneratedPoem(mockPoem);
+      
+      // UNCOMMENT THIS AFTER DEPLOYING BACKEND
+      // const response = await axios.post(API_URL, {
+      //   keywords: keywords.trim(),
+      //   genre: selectedGenre,
+      //   lineCount: lineCountNum
+      // });
+      // setGeneratedPoem(response.data.poem);
+      
     } catch (error) {
       console.error('Error generating poem:', error);
       alert('Failed to generate poem. Please try again.');
