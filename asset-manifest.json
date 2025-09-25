@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/abipoet-ai-poetry-generator/static/css/main.f10ec492.css",
-    "main.js": "/abipoet-ai-poetry-generator/static/js/main.e930770f.js",
+    "main.css": "/abipoet-ai-poetry-generator/static/css/main.4b0c28a7.css",
+    "main.js": "/abipoet-ai-poetry-generator/static/js/main.8d4ccdc4.js",
     "index.html": "/abipoet-ai-poetry-generator/index.html",
-    "main.f10ec492.css.map": "/abipoet-ai-poetry-generator/static/css/main.f10ec492.css.map",
-    "main.e930770f.js.map": "/abipoet-ai-poetry-generator/static/js/main.e930770f.js.map"
+    "main.4b0c28a7.css.map": "/abipoet-ai-poetry-generator/static/css/main.4b0c28a7.css.map",
+    "main.8d4ccdc4.js.map": "/abipoet-ai-poetry-generator/static/js/main.8d4ccdc4.js.map"
   },
   "entrypoints": [
-    "static/css/main.f10ec492.css",
-    "static/js/main.e930770f.js"
+    "static/css/main.4b0c28a7.css",
+    "static/js/main.8d4ccdc4.js"
   ]
 }
